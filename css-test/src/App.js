@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from "./Button2";
-import Box from "./Box2";
+import Button from "./scss/Button3";
+import Box from "./scss/Box3";
 
 export default function App() {
     return (
