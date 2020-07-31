@@ -1,9 +1,5 @@
 import React, {useRef, useState} from 'react';
-import Hello from "./Hello";
 import './App.css';
-import Wrapper from "./Wrapper";
-import Counter from "./Counter";
-import InputSample from "./InputSample";
 import UserList from "./UserList";
 import CreateUser from "./CreateUser";
 
@@ -24,17 +20,20 @@ function App() {
 		{
 			id: 1,
 			username: 'grace',
-			email: 'govlmo91@gmail.com'
+			email: 'govlmo91@gmail.com',
+			active: true
 		},
 		{
 			id: 2,
 			username: 'tester',
-			email: 'tester@email.com'
+			email: 'tester@email.com',
+			active: false
 		},
 		{
 			id: 3,
 			username: 'admin',
-			email: 'admin@email.com'
+			email: 'admin@email.com',
+			active: false
 		}
 	]);
 	
@@ -57,27 +56,32 @@ function App() {
 		});
 		nextId.current += 1;
 	};
+	
 	const onRemove = (id) => {
+		console.log('onRemove!')
 		setUsers(users.filter(user => user.id !== id));
 	};
+	const onToggle = (id) => {
+		console.log('onToggle!')
+		setUsers(
+			users.map(user =>
+				user.id === id
+					? {...user, active : !user.active}
+					: user
+			)
+		)
+	}
 	
 	return (
-		<Wrapper>
-			<Hello name='react' color='red' isSpacial={true}/>
-			<Hello color='pink'/>
-			<br/>
-			<Counter/>
-			<br/>
-			<InputSample/>
-			<br/>
+		<>
 			<CreateUser
 				username={username}
 				email={email}
 				onChange={onChange}
 				onCreate={onCreate}
 			/>
-			<UserList users={users} onRemove={onRemove}/>
-		</Wrapper>
+			<UserList users={users} onRemove={onRemove} onToggle={onToggle}/>
+		</>
 	)
 }
 
